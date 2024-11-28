@@ -5,7 +5,7 @@ import { VStack, Text, Heading, HStack, Button } from '@chakra-ui/react'
 export const List = ({ tasks, onDelete }) => {
   return (
     <VStack>
-        <Heading>Tareas</Heading>
+        {tasks.length > 0 ? <Heading>Tareas</Heading> : <Heading>Aún no hay tareas agregadas...</Heading>}
         {tasks.map((task, index)=> (
             <HStack key={index+task}>
                 <Text>{task}</Text>
