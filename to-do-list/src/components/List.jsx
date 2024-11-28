@@ -1,10 +1,18 @@
-import Item from "./Item"
+// import Item from "./Item"
+import { VStack, Text, Heading, HStack, Button } from '@chakra-ui/react'
 
-const List = () => {
+
+export const List = ({ tasks, onDelete }) => {
   return (
-    <div>
-      
-    </div>
+    <VStack>
+        <Heading>Tareas</Heading>
+        {tasks.map((task, index)=> (
+            <HStack key={index+task}>
+                <Text>{task}</Text>
+                <Button onClick={()=>onDelete(index)}>Eliminar</Button>
+            </HStack>
+        ))}
+    </VStack>
   )
 }
 
