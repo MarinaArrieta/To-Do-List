@@ -3,22 +3,56 @@ import React, { useState } from 'react'
 import { getLocalStorage, setLocalStorage } from '../utils/localStorage'
 import { List } from './List'
 
-const TodoList = () => {
+export const TodoList = () => {
 
     const initialValue = getLocalStorage('tasks') || []
     const [value, setValue] = useState('')
+    const [select, setSelect] = useState('')
+    const [allTasks, setAllTasks] = useState(initialValue)
     const [tasks, setTasks] = useState(initialValue)
 
+
     const onDelete = (indexElement)=>{
-        const deleteTasks = tasks.filter((_, index)=> index !== indexElement)
+        let elem_to_del = tasks[indexElement]
+        let orig_index = allTasks.indexOf(elem_to_del)
+
+        const deleteTasks = allTasks.filter((_, index)=> index !== orig_index)
+        setAllTasks(deleteTasks)
         setTasks(deleteTasks)
         setLocalStorage('tasks', deleteTasks)
     }
 
     const handleClick = ()=>{
-        const newTasks = [...tasks, value]
+        let new_task = {
+            name: value,
+            checked: false
+        }
+        const newTasks = [...allTasks, new_task]
+        setAllTasks(newTasks)
         setTasks(newTasks)
         setLocalStorage('tasks', newTasks)
+    }
+
+    const toggleChecked = (indexElement) => {
+        tasks[indexElement].checked = !tasks[indexElement].checked
+       
+        setTasks([...tasks])
+        setLocalStorage('tasks', allTasks)
+    };
+
+    const filterSelect = (e)=>{
+        let values = e.target.value
+        setSelect(values)
+        if (values === 'check'){
+            let hola= allTasks.filter((task) => task.checked)
+            setTasks(hola)
+        } else if (values === 'uncheck'){
+            let hola= allTasks.filter((task) => !task.checked)
+            setTasks(hola)
+        }
+        else {
+            setTasks(allTasks)
+        }
     }
 
   return (
@@ -39,13 +73,13 @@ const TodoList = () => {
                     </Button>
                 </InputRightElement>
             </InputGroup>
-            <Select placeholder='Seleccione una opcion'>
-                <option value='todas'>Todas</option>
-                <option value='completas'>Completas</option>
-                <option value='incompletas'>Incompletas</option>
+            <Select placeholder='Seleccione una opción' value={select} onChange={filterSelect}>
+                <option value='all'>Todas</option>
+                <option value='check'>Completas</option>
+                <option value='uncheck'>Incompletas</option>
             </Select>
         </VStack>
-        <List tasks={tasks} onDelete={onDelete}/>
+        <List tasks={tasks} onDelete={onDelete} toggleChecked={toggleChecked}/>
     </VStack>
     )
 }
