@@ -1,4 +1,4 @@
-import { Heading, VStack, InputRightElement, InputGroup, Input, Button, Select } from '@chakra-ui/react'
+import { Heading, VStack, InputRightElement, InputGroup, Input, Button, Select, useToast } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import { getLocalStorage, setLocalStorage } from '../utils/localStorage'
 import { List } from './List'
@@ -10,7 +10,9 @@ export const TodoList = () => {
     const [select, setSelect] = useState('')
     const [allTasks, setAllTasks] = useState(initialValue)
     const [tasks, setTasks] = useState(initialValue)
+    const toast = useToast()
 
+    // console.log(value.length)
 
     const onDelete = (indexElement)=>{
         let elem_to_del = tasks[indexElement]
@@ -23,14 +25,23 @@ export const TodoList = () => {
     }
 
     const handleClick = ()=>{
-        let new_task = {
-            name: value,
-            checked: false
+        if (value.length < 4){
+            toast({
+                position: 'top',
+                description: "Debes escribir mas de tres letras...",
+                status: 'error',
+            })
+        } else{
+            let new_task = {
+                name: value,
+                checked: false
+            }
+            const newTasks = [...allTasks, new_task]
+            setAllTasks(newTasks)
+            setTasks(newTasks)
+            setLocalStorage('tasks', newTasks)
+            placeholder='Ingrese una tarea...'
         }
-        const newTasks = [...allTasks, new_task]
-        setAllTasks(newTasks)
-        setTasks(newTasks)
-        setLocalStorage('tasks', newTasks)
     }
 
     const toggleChecked = (indexElement) => {
@@ -55,32 +66,32 @@ export const TodoList = () => {
         }
     }
 
-  return (
-    <VStack minH='100vh' spacing='62px' justifyContent='center' padding='20px'>
-        <Heading>Todo List</Heading>
-        <VStack width= {{base: '90%', md: '80%', lg: '50%', xl: '40%'}}>
-            <InputGroup size='md'>
-                <Input
-                    pr='4.5rem'
-                    type='text'
-                    placeholder='Ingrese una tarea...'
-                    value={value}
-                    onChange={(e)=>setValue(e.target.value)}
-                />
-                <InputRightElement width='4.5rem' padding='4px'>
-                    <Button h='1.75rem' size='sm' onClick={handleClick}>
-                        Agregar
-                    </Button>
-                </InputRightElement>
-            </InputGroup>
-            <Select placeholder='Seleccione una opción' value={select} onChange={filterSelect}>
-                <option value='all'>Todas</option>
-                <option value='check'>Completas</option>
-                <option value='uncheck'>Incompletas</option>
-            </Select>
+    return (
+        <VStack minH='100vh' spacing='62px' justifyContent='center' padding='20px'>
+            <Heading>Todo List</Heading>
+            <VStack width= {{base: '90%', md: '80%', lg: '50%', xl: '40%'}}>
+                <InputGroup size='md'>
+                    <Input
+                        pr='4.5rem'
+                        type='text'
+                        placeholder='Ingrese una tarea...'
+                        value={value}
+                        onChange={(e)=>setValue(e.target.value)}
+                    />
+                    <InputRightElement width='4.5rem' padding='4px'>
+                        <Button h='1.75rem' size='sm' onClick={handleClick}>
+                            Agregar
+                        </Button>
+                    </InputRightElement>
+                </InputGroup>
+                <Select placeholder='Seleccione una opción' value={select} onChange={filterSelect}>
+                    <option value='all'>Todas</option>
+                    <option value='check'>Completas</option>
+                    <option value='uncheck'>Incompletas</option>
+                </Select>
+            </VStack>
+            <List tasks={tasks} onDelete={onDelete} toggleChecked={toggleChecked}/>
         </VStack>
-        <List tasks={tasks} onDelete={onDelete} toggleChecked={toggleChecked}/>
-    </VStack>
     )
 }
 
