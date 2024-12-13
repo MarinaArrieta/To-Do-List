@@ -11,11 +11,8 @@ import { VStack,
     ModalCloseButton, 
     ModalBody, 
     ModalFooter,
-    Editable,
-    EditablePreview,
-    EditableInput,
     Tooltip} from '@chakra-ui/react'
-import { MdCheck, MdDelete, MdWarning, MdEdit } from "react-icons/md";
+import { MdCheck, MdDelete } from "react-icons/md";
 
 
 export const List = ({ tasks, onDelete, toggleChecked}) => {
@@ -29,7 +26,7 @@ export const List = ({ tasks, onDelete, toggleChecked}) => {
                 <Heading textAlign='center' color='purple.800'>Tareas</Heading> 
                 <Text color='blue.900'>Para editar, haz click sobre la palabra</Text> 
             </> : 
-            <Heading textAlign='center'>Aún no hay tareas agregadas...</Heading>}
+            <Heading textAlign='center' color='purple.800'>Aún no hay tareas agregadas...</Heading>}
         {tasks.map((task, index)=> (
             <HStack 
             key={index+task.name} 
