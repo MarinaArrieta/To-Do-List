@@ -94,9 +94,9 @@ export const TodoList = () => {
                     value={select} 
                     onChange={filterSelect}
                 >
-                    <option value='all'>Todas</option>
-                    <option value='check'>Completas</option>
-                    <option value='uncheck'>Incompletas</option>
+                    <option value='all' _hover={{ bg: "red.700" }}>Todas</option>
+                    <option value='check' bg='purple.200'>Completas</option>
+                    <option value='uncheck' bg='purple.200'>Incompletas</option>
                 </Select>
             </VStack>
             <List tasks={tasks} onDelete={onDelete} toggleChecked={toggleChecked}/>
