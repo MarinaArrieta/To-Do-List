@@ -18,13 +18,11 @@ import { MdCheck, MdDelete } from "react-icons/md";
 export const List = ({ tasks, onDelete, toggleChecked}) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
 
-    console.log("este componente")
   return (
     <VStack spacing='5'>
         {tasks.length > 0 ? 
             <>
                 <Heading textAlign='center' color='purple.800'>Tareas</Heading> 
-                <Text color='blue.900'>Para editar, haz click sobre la palabra</Text> 
             </> : 
             <Heading textAlign='center' color='purple.800'>Aún no hay tareas agregadas...</Heading>}
         {tasks.map((task, index)=> (
