@@ -28,7 +28,7 @@ export const TodoList = () => {
         if (value.length < 4){
             toast({
                 position: 'top',
-                description: "Debes escribir mas de tres letras...",
+                description: "Debes escribir mas de tres caracteres...",
                 status: 'error',
             })
         } else{
@@ -40,7 +40,6 @@ export const TodoList = () => {
             setAllTasks(newTasks)
             setTasks(newTasks)
             setLocalStorage('tasks', newTasks)
-            placeholder='Ingrese una tarea...'
         }
     }
 
@@ -67,11 +66,14 @@ export const TodoList = () => {
     }
 
     return (
-        <VStack minH='100vh' spacing='62px' justifyContent='center' padding='20px'>
-            <Heading>Todo List</Heading>
+        <VStack minH='100vh' spacing='62px' justifyContent='center' padding='20px' bgGradient='linear(to-r, gray.300, yellow.400, pink.200)'>
+            <Heading color='purple.800'>Todo List</Heading>
             <VStack width= {{base: '90%', md: '80%', lg: '50%', xl: '40%'}}>
                 <InputGroup size='md'>
                     <Input
+                        variant='filled'
+                        focusBorderColor='purple.600'
+                        bg='purple.200'
                         pr='4.5rem'
                         type='text'
                         placeholder='Ingrese una tarea...'
@@ -79,12 +81,19 @@ export const TodoList = () => {
                         onChange={(e)=>setValue(e.target.value)}
                     />
                     <InputRightElement width='4.5rem' padding='4px'>
-                        <Button h='1.75rem' size='sm' onClick={handleClick}>
+                        <Button h='1.75rem' size='sm' colorScheme='purple' onClick={handleClick}>
                             Agregar
                         </Button>
                     </InputRightElement>
                 </InputGroup>
-                <Select placeholder='Seleccione una opción' value={select} onChange={filterSelect}>
+                <Select 
+                    variant='filled'
+                    focusBorderColor='purple.600'
+                    bg='purple.200'
+                    placeholder='Seleccione una opción' 
+                    value={select} 
+                    onChange={filterSelect}
+                >
                     <option value='all'>Todas</option>
                     <option value='check'>Completas</option>
                     <option value='uncheck'>Incompletas</option>

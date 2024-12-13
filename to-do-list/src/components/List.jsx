@@ -22,11 +22,11 @@ export const List = ({ tasks, onDelete, toggleChecked}) => {
 
     console.log("este componente")
   return (
-    <VStack>
-        {tasks.length > 0 ? <><Heading textAlign='center'>Tareas</Heading> <Text>Para editar, hace click sobre la palabra...</Text> </> : <Heading textAlign='center'>Aún no hay tareas agregadas...</Heading>}
+    <VStack spacing='5'>
+        {tasks.length > 0 ? <><Heading textAlign='center' color='purple.800'>Tareas</Heading> <Text color='blue.900'>Para editar, haz click sobre la palabra</Text> </> : <Heading textAlign='center'>Aún no hay tareas agregadas...</Heading>}
         {tasks.map((task, index)=> (
-            <HStack key={index+task.name}>
-              <MdEdit />
+            <HStack key={index+task.name} bg='purple.200' w='70%' p='3'>
+              <MdEdit color='purple.500'/>
               <Editable textDecoration={task.checked  ? 'line-through' : 'none'} defaultValue={task.name} >
               <EditablePreview />
               <EditableInput />
@@ -36,7 +36,7 @@ export const List = ({ tasks, onDelete, toggleChecked}) => {
                 
                 <Button 
                     padding='11px' 
-                    colorScheme={task.checked ? 'teal' : 'pink'}
+                    colorScheme={task.checked ? 'orange' : 'pink'}
                     onClick={() => toggleChecked(index)}
                 >
                     <MdCheck />
@@ -46,30 +46,30 @@ export const List = ({ tasks, onDelete, toggleChecked}) => {
 
                 <Button 
                     padding='11px' 
-                    colorScheme='blue'
+                    colorScheme='red'
                     onClick={onOpen}
                 >
                     <MdDelete />
                     {index}
                 </Button>
 
-                <Modal blockScrollOnMount={true} isOpen={isOpen} onClose={onClose}>
-                    <ModalOverlay />
-                    <ModalContent>
-                    <ModalHeader>Seguro desea eliminar este elemento ?</ModalHeader>
+                <Modal  blockScrollOnMount={true} isOpen={isOpen} onClose={onClose} isCentered >
+                    <ModalOverlay bgGradient='linear(to-r, gray.300, yellow.400, pink.200)' />
+                    <ModalContent w='75%' bg='purple.200'>
+                    <ModalHeader color='purple.800'>Seguro desea eliminar este elemento ?</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
-                        <MdWarning />
-                        <Text fontWeight='bold' mb='1rem'>
-                            Esta acción no se puede revertir
+                        
+                        <Text color='blue.900' fontWeight='bold' mb='1rem'>
+                          Esta acción no se puede revertir
                         </Text>
                     </ModalBody>
 
                     <ModalFooter>
-                        <Button colorScheme='blue' mr={3} onClick={onClose}>
+                        <Button colorScheme='orange' mr={3} onClick={onClose}>
                         Cerrar
                         </Button>
-                        <Button variant='ghost' onClick={()=>onClose(onDelete(index))}>Eliminar</Button>
+                        <Button colorScheme='red' onClick={()=>onClose(onDelete(index))}>Eliminar</Button>
                     </ModalFooter>
                     </ModalContent>
                 </Modal>
