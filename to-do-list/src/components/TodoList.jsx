@@ -8,7 +8,7 @@ export const TodoList = () => {
     const initialValue = getLocalStorage('tasks') || []
     const [value, setValue] = useState('')
     const [select, setSelect] = useState('')
-    const [allTasks, setAllTasks] = useState(initialValue)
+    const [allTasks, setAllTasks] = useState(initialValue.sort((a, b) => (a.checked === b.checked ? 0 : a.checked ? 1 : -1)))
     const [tasks, setTasks] = useState(initialValue)
     const toast = useToast()
 
@@ -34,7 +34,7 @@ export const TodoList = () => {
                 name: value,
                 checked: false
             }
-            const newTasks = [...allTasks, new_task]
+            const newTasks = [...allTasks, new_task].sort((a, b) => (a.checked === b.checked ? 0 : a.checked ? 1 : -1))
             setAllTasks(newTasks)
             setTasks(newTasks)
             setLocalStorage('tasks', newTasks)
