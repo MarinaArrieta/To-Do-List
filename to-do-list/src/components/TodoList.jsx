@@ -12,8 +12,6 @@ export const TodoList = () => {
     const [tasks, setTasks] = useState(initialValue)
     const toast = useToast()
 
-    // console.log(value.length)
-
     const onDelete = (indexElement)=>{
         let elem_to_del = tasks[indexElement]
         let orig_index = allTasks.indexOf(elem_to_del)
@@ -45,6 +43,8 @@ export const TodoList = () => {
 
     const toggleChecked = (indexElement) => {
         tasks[indexElement].checked = !tasks[indexElement].checked
+
+        tasks.sort((a, b) => (a.checked === b.checked ? 0 : a.checked ? 1 : -1))
        
         setTasks([...tasks])
         setLocalStorage('tasks', allTasks)

@@ -25,12 +25,25 @@ export const List = ({ tasks, onDelete, toggleChecked}) => {
     <VStack spacing='5'>
         {tasks.length > 0 ? <><Heading textAlign='center' color='purple.800'>Tareas</Heading> <Text color='blue.900'>Para editar, haz click sobre la palabra</Text> </> : <Heading textAlign='center'>Aún no hay tareas agregadas...</Heading>}
         {tasks.map((task, index)=> (
-            <HStack key={index+task.name} bg='purple.200' w='70%' p='3'>
-              <MdEdit color='purple.500'/>
-              <Editable textDecoration={task.checked  ? 'line-through' : 'none'} defaultValue={task.name} >
-              <EditablePreview />
-              <EditableInput />
-            </Editable>
+            <HStack 
+            key={index+task.name} 
+            bg={task.checked ? 'purple.800' : 'purple.200'} 
+            w='70%' 
+            p='3'>
+                {/* <MdEdit color='purple.500'/>
+                <Editable textDecoration={task.checked  ? 'line-through' : 'none'} defaultValue={task.name} >
+                <EditablePreview />
+                <EditableInput />
+                </Editable> */}
+                <Editable 
+                textDecoration={task.checked ? 'line-through' : 'none'} 
+                color={task.checked ? 'purple.200' : 'purple.800'} 
+                defaultValue={task.name}
+                onInput={(newValue) => handleUpdateTaskName(task.id, newValue)}
+                >
+                <EditablePreview />
+                <EditableInput />
+                </Editable>
                 
                 {/* <Text textDecoration={task.checked  ? 'line-through' : 'none'}>{task.name}</Text> */}
                 
