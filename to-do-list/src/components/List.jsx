@@ -13,7 +13,8 @@ import { VStack,
     ModalFooter,
     Editable,
     EditablePreview,
-    EditableInput} from '@chakra-ui/react'
+    EditableInput,
+    Tooltip} from '@chakra-ui/react'
 import { MdCheck, MdDelete, MdWarning, MdEdit } from "react-icons/md";
 
 
@@ -41,20 +42,48 @@ export const List = ({ tasks, onDelete, toggleChecked}) => {
                     color={task.checked ? 'purple.200' : 'purple.800'} 
                     textDecoration={task.checked  ? 'line-through' : 'none'}>{task.name}
                 </Text>
-                <Button 
-                    padding='11px' 
-                    colorScheme={task.checked ? 'orange' : 'pink'}
-                    onClick={() => toggleChecked(index)}
-                >
-                    <MdCheck />
-                </Button>
-                <Button 
-                    padding='11px' 
-                    colorScheme='red'
-                    onClick={onOpen}
-                >
-                    <MdDelete />
-                </Button>
+                {!task.checked ? <>
+                <Tooltip label="Marcar tarea completa 💪">
+                    <Button 
+                        padding='11px' 
+                        colorScheme={task.checked ? 'orange' : 'pink'}
+                        onClick={() => toggleChecked(index)}
+                    >
+                        <MdCheck />
+                    </Button>
+                </Tooltip>
+                <Tooltip label="Eliminar tarea sin completar 🤔">
+                    <Button 
+                        padding='11px' 
+                        colorScheme='red'
+                        onClick={onOpen}
+                    >
+                        <MdDelete />
+                    </Button>
+                </Tooltip>
+                </>
+                :
+                <>
+                <Tooltip label="Desmarcar tarea completa 🥺">
+                    <Button 
+                        padding='11px' 
+                        colorScheme={task.checked ? 'orange' : 'pink'}
+                        onClick={() => toggleChecked(index)}
+                    >
+                        <MdCheck />
+                    </Button>
+                </Tooltip>
+                <Tooltip label="Eliminar tarea completa 😉">
+                    <Button 
+                        padding='11px' 
+                        colorScheme='red'
+                        onClick={onOpen}
+                    >
+                        <MdDelete />
+                    </Button>
+                </Tooltip>
+                </>
+                }
                 <Modal  blockScrollOnMount={true} isOpen={isOpen} onClose={onClose} isCentered >
                     <ModalOverlay bgGradient='linear(to-r, gray.300, yellow.400, pink.200)' />
                     <ModalContent w='75%' bg='purple.200'>
