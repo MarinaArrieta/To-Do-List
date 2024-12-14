@@ -7,6 +7,7 @@ En esta página vas a poder listar tus tareas, chequearlas una vez que las reali
 - Yarn: manejador de paquetes
 - Vite: es una herramienta de compilación que tiene como objetivo proporcionar una experiencia de desarrollo más rápida y ágil para proyectos web modernos
 - Chakra UI: es un sistema de componentes para crear productos con rapidez . Componentes React accesibles para crear sistemas de diseño y aplicaciones web de alta calidad
+- React Icons: es una biblioteca que proporciona íconos SVG accesibles para aplicaciones React
 - Gimp: edición de imágenes
 - Canva: edición de imágenes
 - Postimg: es un sitio web que permite subir imágenes de forma gratuita y obtener una URL para insertarlas en foros, blogs o redes sociales
